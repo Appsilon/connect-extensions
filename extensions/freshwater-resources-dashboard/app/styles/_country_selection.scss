@@ -1,0 +1,15 @@
+.box_decor_class {
+  padding: 15px 20px;
+  box-sizing: border-box;
+  box-shadow: 0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108);
+  margin-bottom: 15px;
+}
+
+div.info.legend.leaflet-control,
+.font_decor_class,
+.leaflet-popup-content {
+  font-style: normal !important;
+  font-family: 'Maven Pro', sans-serif;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+}

@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500;600;700&display=swap');
+
+$aps-blue: #0099f9;
+$aps_bg_grey: #f2faff;
+$aps_seprator: #c1c7cd;
+$aps_title: #4d5358;
+
+.navbar-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > i {
+    color: $aps-blue;
+  }
+}
+
+#cta_info {
+  margin: 0 -0.4em 0 -0.6em;
+  box-shadow: none;
+}
+
+#tabs {
+  display: none;
+}
+
+#app_header {
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.appsilon_logo {
+  width: 8em;
+  margin-left: 0.5em;
+}
+
+.app_header_vertical_separator {
+  background: $aps_seprator;
+  margin: 10px 0;
+  height: calc(100% - 20px);
+}
+
+.app_header_title {
+  user-select: none;
+  color: $aps_title;
+  font-family: 'Maven Pro', 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-left: 8em;
+}
+
+.btn-cta {
+  cursor: pointer;
+  color: $aps-blue;
+  font-family: 'Maven Pro', 'Roboto', sans-serif;
+  border: 2px solid $aps-blue;
+  font-size: 1em;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-right: 1.5em;
+  justify-content: center;
+  background-color: white;
+  border-radius: 0.5em;
+  transition: all 0.5s ease;
+}
+
+.btn-cta:hover {
+  color: white;
+  text-decoration: none;
+  background-color: $aps-blue;
+}
+
+.btn-nav_menu {
+  font-family: 'Maven Pro', 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  background: transparent;
+  border: none;
+  color: $aps_title;
+}
+
+.btn-nav_menu:hover,
+.btn-nav_menu:active {
+  color: $aps-blue !important;
+  background-color: $aps_bg_grey !important;
+}
+
+.cta-icon {
+  background: transparent !important;
+  border: none;
+  color: $aps-blue !important;
+  box-shadow: none;
+  font-size: 1.5em;
+}
+
+.header_control {
+  display: none;
+  width: 20px;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .app_header_vertical_separator {
+    background: $aps_seprator;
+    margin: 10px 0;
+    height: 1px;
+  }
+
+  .app_header.mobile-collapsed {
+    padding: 12px 24px 12px 0;
+  }
+
+  .app_header {
+    gap: 0;
+  }
+
+  .app_header_title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #040a3c;
+  }
+
+  .header_control {
+    display: block;
+    cursor: pointer;
+  }
+
+  .btn-nav_menu {
+    text-align: left;
+    margin-right: 1rem;
+  }
+
+  #app_header.mobile-expanded .mobile-toggled,
+  #app_header.mobile-expanded .header_collapse {
+    display: flex !important;
+    margin-right: 2rem;
+  }
+
+  #app_header.mobile-expanded .header_expand {
+    display: none !important;
+  }
+
+  #app_header.mobile-collapsed .mobile-toggled,
+  #app_header.mobile-collapsed .header_collapse {
+    display: none !important;
+  }
+
+  #app_header.mobile-collapsed .header_expand {
+    display: flex !important;
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: 0;
+  outline-offset: 0;
+  color: $aps-blue !important;
+  border-bottom: 4px solid $aps-blue;
+  background-color: $aps_bg_grey !important;
+}

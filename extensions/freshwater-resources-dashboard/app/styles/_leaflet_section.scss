@@ -1,0 +1,67 @@
+// leaflet map container
+$selectColor: #0099f9;
+$backGroundColor: #eef7ff;
+
+.leaflet {
+  .leaflet-tooltip {
+    width: max-content;
+    background: transparent;
+    border: transparent;
+    box-shadow: none;
+  }
+}
+
+.renewflow_label {
+  background-color: transparent;
+  border: transparent;
+  margin: 0;
+  padding: 0;
+  border-radius: 2rem;
+}
+
+.text_shadow {
+  filter: drop-shadow(black 0.5px 0.5px 0) drop-shadow(black -0.5px -0.5px 0) drop-shadow(black -0.5px 0.5px 0) drop-shadow(black 0.5px -0.5px 0);
+}
+
+.font_clr_good {
+  color: #91bfdb;
+}
+
+.font_clr_avg {
+  color: #fee090;
+}
+
+.font_clr_bad {
+  color: #f98880;
+}
+
+.subtitle {
+  h5 {
+    margin-top: 0;
+    font-style: italic;
+    font-size: 1.5rem;
+  }
+}
+
+.description {
+  font-size: 1rem;
+}
+
+h4 {
+  font-size: 2.5rem;
+}
+
+.indicator_choice {
+  background: white;
+  opacity: 0.8;
+  position: absolute;
+  z-index: 1;
+  top: 150px;
+  left: 30px;
+  border-radius: 8px;
+}
+
+.radio label {
+  margin: 10px 0 0 10px;
+  font-family: "Maven Pro", sans-serif;
+}
