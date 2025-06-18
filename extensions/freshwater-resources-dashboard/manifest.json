@@ -5370,5 +5370,14 @@
       "checksum": "4f8295c6437069d07ae84698aca26c76"
     }
   },
-  "users": null
+  "users": null,
+  "extension": {
+    "name": "freshwater-resources-dashboard",
+    "title": "Freshwater Resources Dashboard",
+    "description": "A comprehensive view of freshwater availability across countries, using data from the AQUASTAT Statistics database. This dynamic dashboard utilizes an interactive map and trendline charts to deliver valuable insights into water resource distribution and changes over time.",
+    "homepage": "https://github.com/posit-dev/connect-extensions/tree/main/extensions/freshwater-resources-dashboard",
+    "category": "example",
+    "minimumConnectVersion": "2025.04.0",
+    "version": "0.0.0"
+  }
 }
