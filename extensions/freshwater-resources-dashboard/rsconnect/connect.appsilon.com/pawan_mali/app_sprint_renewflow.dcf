@@ -1,0 +1,13 @@
+name: app_sprint_renewflow
+title: app_sprint_renewflow
+username: pawan_mali
+account: pawan_mali
+server: connect.appsilon.com
+hostUrl: https://connect.appsilon.com/__api__
+appId: 497
+bundleId: 3220
+url: https://connect.appsilon.com/fresh-water-resources/
+when: 1687506195.92614
+lastSyncTime: 1687506195.92615
+asMultiple: FALSE
+asStatic: FALSE

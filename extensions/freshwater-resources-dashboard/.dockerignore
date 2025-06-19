@@ -1,0 +1,9 @@
+.gitignore
+.Rpoj.user/
+.github/
+renv/library/
+renv/staging/
+.rhino/node_modules/
+.renvignore
+.Renviron
+.rscignore
