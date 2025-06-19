@@ -7,3 +7,5 @@ if (file.exists("renv")) {
 
 # Allow absolute module imports (relative to the app root).
 options(box.path = getwd())
+
+options(repos = c(CRAN = "https://packagemanager.posit.co/cran/latest"))
