@@ -1,10 +1,10 @@
 box::use(
+  checkmate[expect_data_frame],
   testthat[...],
-  checkmate[expect_data_frame]
 )
 
 box::use(
-  app/logic/read_data[complete_data]
+  app/logic/read_data[complete_data],
 )
 
 test_that("check complete_data", {

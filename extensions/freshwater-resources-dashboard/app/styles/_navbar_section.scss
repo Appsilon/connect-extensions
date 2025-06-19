@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500;600;700&display=swap');
+/* stylelint-disable selector-class-pattern, scss/dollar-variable-pattern */
+
+@import "https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500;600;700&display=swap";
 
 $aps-blue: #0099f9;
 $aps_bg_grey: #f2faff;
@@ -45,7 +47,7 @@ $aps_title: #4d5358;
 .app_header_title {
   user-select: none;
   color: $aps_title;
-  font-family: 'Maven Pro', 'Roboto', sans-serif;
+  font-family: "Maven Pro", Roboto, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -56,10 +58,10 @@ $aps_title: #4d5358;
 .btn-cta {
   cursor: pointer;
   color: $aps-blue;
-  font-family: 'Maven Pro', 'Roboto', sans-serif;
+  font-family: "Maven Pro", Roboto, sans-serif;
   border: 2px solid $aps-blue;
   font-size: 1em;
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.5em 1em;
   margin-right: 1.5em;
   justify-content: center;
   background-color: white;
@@ -74,7 +76,7 @@ $aps_title: #4d5358;
 }
 
 .btn-nav_menu {
-  font-family: 'Maven Pro', 'Roboto', sans-serif;
+  font-family: "Maven Pro", Roboto, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

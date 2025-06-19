@@ -1,18 +1,15 @@
 box::use(
-  shiny[bootstrapPage, moduleServer, NS, renderText, tags, textOutput],
-  dplyr[select, mutate, group_by, filter, arrange, pull],
-  qs[qread],
+  dplyr[arrange, filter, group_by, mutate, pull, select],
   here[here],
+  qs[qread],
+  shiny[bootstrapPage, moduleServer, NS, renderText, tags, textOutput],
 )
 
 box::use(
   app/logic/read_data[complete_data, map_indicator],
-)
-
-box::use(
-  app/view/navbar_section,
-  app/view/map,
   app/view/line_chart,
+  app/view/map,
+  app/view/navbar_section,
 )
 
 #' @export
