@@ -1,9 +1,8 @@
 # The application header.
 # Includes branding and navigation
-
 box::use(
-  shiny[...],
   imola[...],
+  shiny[...],
 )
 
 box::use(
@@ -194,6 +193,5 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     about_section$server("about")
-
   })
 }

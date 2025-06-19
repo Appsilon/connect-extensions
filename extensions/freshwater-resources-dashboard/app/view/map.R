@@ -1,27 +1,27 @@
 box::use(
-  shiny[...],
-  leaflet[...],
   dplyr[
-    case_when,
-    select,
-    mutate,
-    group_by,
-    filter,
     arrange,
-    pull,
-    left_join,
+    case_when,
+    filter,
+    group_by,
     join_by,
+    left_join,
+    mutate,
+    pull,
+    select
   ],
-  tidyr[replace_na],
-  htmlwidgets[JS],
-  htmltools[HTML],
   glue[glue],
+  htmltools[HTML],
+  htmlwidgets[JS],
+  leaflet[...],
+  leaflet.extras[...],
+  shiny[...],
   shinycssloaders[withSpinner],
-  leaflet.extras[...]
+  tidyr[replace_na],
 )
 
 box::use(
-  app/logic/read_data[map_data, map_indicator]
+  app/logic/read_data[map_data, map_indicator],
 )
 
 tooltip_html_text <- file.info("app/html/tooltip.html")
@@ -31,7 +31,8 @@ variables_to_choose <- c(
   "Renewable water resources per capita" =
     "Total renewable water resources per capita (m3/inhab/year)",
   "Access to safe drinking-water" =
-    "Total population with access to safe drinking-water (JMP) (%)")
+    "Total population with access to safe drinking-water (JMP) (%)"
+)
 
 
 #' @export
@@ -64,18 +65,15 @@ ui <- function(id) {
 #' @export
 server <- function(id, base_df) {
   moduleServer(id, function(input, output, session) {
-
     filtered_map_df <- reactive({
       base_df |> select(Country, "indicator" = input$indicatorVar)
     })
 
     breaks <- reactive({
       if (input$indicatorVar == variables_to_choose[1]) {
-
         indicator_max_value <- filtered_map_df()$indicator |> max(na.rm = TRUE)
 
         return(c(0, 1000, 3000, 5000, 10000, 100000, round(indicator_max_value, digits = -5)))
-
       } else {
         return(c(30, 50, 60, 80, 95, 100))
       }
@@ -145,7 +143,6 @@ server <- function(id, base_df) {
           FUN = HTML
         )
       }
-
     })
 
     output$map <- renderLeaflet({
@@ -161,21 +158,34 @@ server <- function(id, base_df) {
           lat = 30,
           zoom = 3
         ) |>
-        addTiles(group = "OSM",
-                 options = providerTileOptions(minZoom = 3,
-                                               maxZoom = 7)) |>
+        addTiles(
+          group = "OSM",
+          options = providerTileOptions(
+            minZoom = 3,
+            maxZoom = 7
+          )
+        ) |>
         addProviderTiles("Stadia.StamenToner",
-                         group = "Toner",
-        options = providerTileOptions(minZoom = 3,
-                                      maxZoom = 7)) |>
+          group = "Toner",
+          options = providerTileOptions(
+            minZoom = 3,
+            maxZoom = 7
+          )
+        ) |>
         addProviderTiles("Esri.WorldImagery",
-                         group = "Satellite",
-                         options = providerTileOptions(minZoom = 3,
-                                                       maxZoom = 7)) |>
+          group = "Satellite",
+          options = providerTileOptions(
+            minZoom = 3,
+            maxZoom = 7
+          )
+        ) |>
         addProviderTiles("Stadia.StamenTonerLite",
-                         group = "Toner Lite",
-                         options = providerTileOptions(minZoom = 3,
-                                                       maxZoom = 10)) |>
+          group = "Toner Lite",
+          options = providerTileOptions(
+            minZoom = 3,
+            maxZoom = 10
+          )
+        ) |>
         addPolygons(
           layerId = ~COUNTRY,
           color = "black",

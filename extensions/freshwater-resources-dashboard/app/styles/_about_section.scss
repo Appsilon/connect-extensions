@@ -1,8 +1,11 @@
+/* stylelint-disable selector-class-pattern,
+scss/dollar-variable-pattern,
+declaration-block-no-redundant-longhand-properties */
+
 $dark-blue: #050c31;
 $light-blue: #dbf1ff;
 $aps-blue: #0099f9;
 $brown: #c4c4c4;
-
 $card-bg-color: #172c40;
 $card-border-color: #ededed;
 $card-content-clr: #ecf5ff;
@@ -171,7 +174,7 @@ $aps-smry-color: #244059;
       gap: 1.1em;
       background: $card-bg-color;
       border: 0.1em solid $card-border-color;
-      box-shadow: 0 1em 2em rgba(0, 0, 0, 0.02);
+      box-shadow: 0 1em 2em rgb(0 0 0 / 2%);
       border-radius: 1em;
     }
 

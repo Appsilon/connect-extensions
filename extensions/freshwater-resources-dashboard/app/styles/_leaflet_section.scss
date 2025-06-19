@@ -1,3 +1,5 @@
+/* stylelint-disable selector-class-pattern, scss/dollar-variable-pattern */
+
 // leaflet map container
 $selectColor: #0099f9;
 $backGroundColor: #eef7ff;
@@ -20,7 +22,9 @@ $backGroundColor: #eef7ff;
 }
 
 .text_shadow {
-  filter: drop-shadow(black 0.5px 0.5px 0) drop-shadow(black -0.5px -0.5px 0) drop-shadow(black -0.5px 0.5px 0) drop-shadow(black 0.5px -0.5px 0);
+  filter:
+    drop-shadow(black 0.5px 0.5px 0) drop-shadow(black -0.5px -0.5px 0)
+    drop-shadow(black -0.5px 0.5px 0) drop-shadow(black 0.5px -0.5px 0);
 }
 
 .font_clr_good {

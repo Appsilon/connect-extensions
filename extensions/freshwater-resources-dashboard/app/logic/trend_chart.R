@@ -1,12 +1,12 @@
 box::use(
+  dplyr[arrange, case_when, filter, group_by, lag, mutate, pull, select],
   echarts4r[...],
-  dplyr[select, mutate, group_by, case_when, lag, filter, arrange, pull],
-  magrittr[`%>%`],
-  utils[head],
+  here[here],
   htmlwidgets[JS],
-  stringr[str_detect],
+  magrittr[`%>%`],
   qs[qread],
-  here[here]
+  stringr[str_detect],
+  utils[head],
 )
 
 #' @description The following function takes raw data and indicator
@@ -22,7 +22,6 @@ trend_data_process <- function(raw_data,
                                country_selection,
                                indicator =
                                  "Total renewable water resources per capita (m3/inhab/year)") {
-
   # indicator param cleaning
   if (str_detect(indicator, "per capita")) {
     indicator <- "Total renewable water resources per capita (m3/inhab/year)"
@@ -49,26 +48,33 @@ trend_data_process <- function(raw_data,
 
   if (any(is.na(raw_data$indicator))) {
     raw_data <- raw_data |>
-      filter(! is.na(indicator))
+      filter(!is.na(indicator))
   }
 
   raw_data <- raw_data |>
-    mutate(Year = as.character(Year),
-           indicator = round(indicator),
-           unit = unit) |>
+    mutate(
+      Year = as.character(Year),
+      indicator = round(indicator),
+      unit = unit
+    ) |>
     group_by(Country) |>
     arrange(Year) |>
-    mutate(deviation = round((indicator - lag(indicator)) /
-                               lag(indicator),
-                             3) * 100,
-           comment = case_when(deviation == 0 ~ "<i>No movement from previous year</i>",
-                               is.na(deviation) ~ "<i>Origination year</i>",
-                               TRUE ~ paste0("<i>",
-                                             abs(deviation), "%",
-                                             ifelse(deviation < 0,
-                                                    " drop",
-                                                    " increase"),
-                                             " from previous year</i>"))) |>
+    mutate(
+      deviation = round((indicator - lag(indicator)) / lag(indicator), 3) * 100,
+      comment = case_when(
+        deviation == 0 ~ "<i>No movement from previous year</i>",
+        is.na(deviation) ~ "<i>Origination year</i>",
+        TRUE ~ paste0(
+          "<i>",
+          abs(deviation), "%",
+          ifelse(deviation < 0,
+            " drop",
+            " increase"
+          ),
+          " from previous year</i>"
+        )
+      )
+    ) |>
     select(-deviation)
 
   return(raw_data)
@@ -85,61 +91,73 @@ trend_data_process <- function(raw_data,
 #' @return echart object to be used in shiny module
 #' @export
 trend_echart <- function(base_data,
-                         color_palette = c("#005067", "#048329", "#f7d6bf",
-                                           "#FEB9C6", "#B96B85"),
+                         color_palette = c(
+                           "#005067", "#048329", "#f7d6bf",
+                           "#FEB9C6", "#B96B85"
+                         ),
                          use_json_theme = TRUE,
                          json_theme_path = paste0(here("app/json/appsilon.echarts.json")),
                          indicator_title) {
-
   unit_tooltip <- unique(base_data$unit)
   stopifnot(length(unit_tooltip) == 1)
 
-  trend_tooltip_format <- paste0("function(params){
+  trend_tooltip_format <- paste0(
+    "function(params){
                 var vals = params.name.split(',')
 
                 return('<strong>' +
                        params.seriesName +' - ' + params.value[0] +
                        '</strong><br />' +
                        Number(params.value[1]).toLocaleString('en-US') + ", unit_tooltip,
-                                 "+ '<br />' + vals[0])   }  ")
+    "+ '<br />' + vals[0])   }  "
+  )
 
   if (str_detect(indicator_title, "%")) {
-    y_axis_label_format <- JS("function(value) {",
-                              "  return (value) + '%';",
-                              "}")
+    y_axis_label_format <- JS(
+      "function(value) {",
+      "  return (value) + '%';",
+      "}"
+    )
   } else {
-    y_axis_label_format <- JS("function(value) {",
-                              "  return (value / 1000) + 'K';",
-                              "}")
+    y_axis_label_format <- JS(
+      "function(value) {",
+      "  return (value / 1000) + 'K';",
+      "}"
+    )
   }
 
   line_chart <- base_data |>
-    e_charts(x         = Year) |>
-
-    e_line(serie       = indicator,
-           showSymbol  = FALSE,
-           smooth      = TRUE,
-           bind        = comment,
-           animationDuration = 3000,
-           animationEasing = "circularInOut",
-           lineStyle   = list(width = 3)) |>
-
+    e_charts(x = Year) |>
+    e_line(
+      serie = indicator,
+      showSymbol = FALSE,
+      smooth = TRUE,
+      bind = comment,
+      animationDuration = 3000,
+      animationEasing = "circularInOut",
+      lineStyle = list(width = 3)
+    ) |>
     e_legend(
-            orient = "vertical",
-            top = "center",
-            right = 10) |>
-
-    e_x_axis(axisLabel = list(fontStyle  = "normal",
-                              fontFamily = "Maven Pro",
-                              fontWeight = 400,
-                              fontSize   = "12px")) |>
-    e_y_axis(scale     = TRUE,
-             axisLabel = list(formatter  = y_axis_label_format,
-                              fontStyle  = "normal",
-                              fontFamily = "Maven Pro",
-                              fontWeight = 400,
-                              fontSize   = "12px")) %>%
-
+      orient = "vertical",
+      top = "center",
+      right = 10
+    ) |>
+    e_x_axis(axisLabel = list(
+      fontStyle = "normal",
+      fontFamily = "Maven Pro",
+      fontWeight = 400,
+      fontSize = "12px"
+    )) |>
+    e_y_axis(
+      scale = TRUE,
+      axisLabel = list(
+        formatter = y_axis_label_format,
+        fontStyle = "normal",
+        fontFamily = "Maven Pro",
+        fontWeight = 400,
+        fontSize = "12px"
+      )
+    ) %>%
     # Add Icon of flag - todo
     # check flag avaialility for every country in dataset
     # and have a default flag in case of missing
@@ -151,25 +169,31 @@ trend_echart <- function(base_data,
         e_color(., color = color_palette)
       }
     } |>
-
-    e_title(text      = indicator_title,
-            x         = "center",
-            textStyle = list(fontStyle  = "normal",
-                             fontFamily = "Maven Pro",
-                             fontWeight = 400,
-                             fontSize   = "14px")) |>
-
-    e_tooltip(formatter     = e_tooltip_pointer_formatter("decimal"),
-              trigger       = "axis",
-              borderWidth   = 1,
-              triggerOn     = "mousemove|click",
-              showDelay     = 20,
-              textStyle     = list(fontStyle = "normal",
-                                   fontFamily = "Maven Pro",
-                                   fontWeight = 500,
-                                   fontSize = "16px"),
-              enterable     = FALSE,
-              extraCssText  = "box-shadow: 0 2px 7px #000000;") |>
+    e_title(
+      text = indicator_title,
+      x = "center",
+      textStyle = list(
+        fontStyle = "normal",
+        fontFamily = "Maven Pro",
+        fontWeight = 400,
+        fontSize = "14px"
+      )
+    ) |>
+    e_tooltip(
+      formatter = e_tooltip_pointer_formatter("decimal"),
+      trigger = "axis",
+      borderWidth = 1,
+      triggerOn = "mousemove|click",
+      showDelay = 20,
+      textStyle = list(
+        fontStyle = "normal",
+        fontFamily = "Maven Pro",
+        fontWeight = 500,
+        fontSize = "16px"
+      ),
+      enterable = FALSE,
+      extraCssText = "box-shadow: 0 2px 7px #000000;"
+    ) |>
     e_hide_grid_lines(which = c("x", "y")) |>
     e_datazoom() |>
     e_zoom(

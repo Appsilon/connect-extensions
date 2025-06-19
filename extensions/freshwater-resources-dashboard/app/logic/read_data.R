@@ -1,11 +1,11 @@
 box::use(
-  qs[qread],
+  dplyr[arrange, filter, left_join, pull],
   here[here],
-  stats[setNames],
+  magrittr[`%>%`],
+  qs[qread],
   sf[st_read],
-  dplyr[filter, arrange, pull, left_join],
+  stats[setNames],
   utils[head],
-  magrittr[`%>%`]
 )
 
 #' @export
@@ -26,7 +26,8 @@ map_indicator <- "Total population with access to safe drinking-water (JMP) (%)"
 trend_raw <- qread(here("app/data/data_trendline.qs")) |>
   left_join(
     qread(here("app/data/continent_mapping.qs")),
-    by = "Country")
+    by = "Country"
+  )
 
 #' @export
 read_qs <- function(path) {
@@ -38,13 +39,15 @@ read_qs <- function(path) {
 
 #' @export
 get_top5_countries <- function(df, continent,
-                          indicator =
-                            "Total renewable water resources per capita (m3/inhab/year)") {
+                               indicator =
+                                 "Total renewable water resources per capita (m3/inhab/year)") {
   all_counties <- sort(unique(df$Country))
 
   top5_countries <- df %>%
-    filter(Year == 2020,
-           Continent == continent) %>%
+    filter(
+      Year == 2020,
+      Continent == continent
+    ) %>%
     arrange(desc(.[[which(names(df) == indicator)]])) %>%
     head(5) |>
     pull(Country)
@@ -53,6 +56,8 @@ get_top5_countries <- function(df, continent,
 }
 
 #' @export
-color_set <- c("#0099F9", "#FA7C2E", "#00E255",
-               "#FB4157", "#FAE22D", "#00B49E",
-               "#843BFA", "#4357FB")
+color_set <- c(
+  "#0099F9", "#FA7C2E", "#00E255",
+  "#FB4157", "#FAE22D", "#00B49E",
+  "#843BFA", "#4357FB"
+)

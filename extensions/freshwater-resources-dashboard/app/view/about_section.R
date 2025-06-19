@@ -128,24 +128,24 @@ about_section <- div(
     topic_section(
       header = "About the project",
       description = div(
-        "The Global Freshwater Resources Dashboard 
-        presents a comprehensive visualization of 
-        the available freshwater resources per 
-        country and per capita, utilizing data from 
-        AQUASTAT Statistics. This dynamic dashboard 
-        combines a geographic map and trendline 
-        charts to offer valuable insights into water 
+        "The Global Freshwater Resources Dashboard
+        presents a comprehensive visualization of
+        the available freshwater resources per
+        country and per capita, utilizing data from
+        AQUASTAT Statistics. This dynamic dashboard
+        combines a geographic map and trendline
+        charts to offer valuable insights into water
         resource distribution and changes over time."
       )
     ),
     topic_section(
       header = "Dataset Info",
-      description = "Data for this dashboard is sourced 
-      from the reliable AQUASTAT Statistics database , 
-      managed by the Food and Agriculture Organization 
-      (FAO) of the United Nations. AQUASTAT collects, 
-      analyzes, and disseminates information on water 
-      resources, water uses, and agricultural water 
+      description = "Data for this dashboard is sourced
+      from the reliable AQUASTAT Statistics database ,
+      managed by the Food and Agriculture Organization
+      (FAO) of the United Nations. AQUASTAT collects,
+      analyzes, and disseminates information on water
+      resources, water uses, and agricultural water
       management for over 180 countries."
     ),
     div(
@@ -170,11 +170,11 @@ about_section <- div(
           href_link = "https://appsilon.github.io/rhino/",
           img_link = create_image_path("rhino.png"),
           card_header = "Rhino",
-          card_text =  "Rhino is an Open-Source Package developed by Appsilon to
-              help the R community make more professional Shiny Apps. Rhino allows you to 
-              create Shiny apps The Appsilon Way - like a fullstack software engineer. 
-              Apply best software engineering practices, modularize your code, 
-              test it well, make UI beautiful, and think about user adoption 
+          card_text = "Rhino is an Open-Source Package developed by Appsilon to
+              help the R community make more professional Shiny Apps. Rhino allows you to
+              create Shiny apps The Appsilon Way - like a fullstack software engineer.
+              Apply best software engineering practices, modularize your code,
+              test it well, make UI beautiful, and think about user adoption
               from the very beginning."
         ),
         empty_card()
@@ -216,13 +216,14 @@ server <- function(id) {
       input$open_modal,
       ignoreNULL = TRUE,
       {
-      showModal(
-        modalDialog(
-          easyClose = TRUE,
-          title = "Fresh Water Resources",
-          about_section
+        showModal(
+          modalDialog(
+            easyClose = TRUE,
+            title = "Fresh Water Resources",
+            about_section
+          )
         )
-      )
-    })
+      }
+    )
   })
 }

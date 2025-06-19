@@ -5,12 +5,12 @@ permissions:
 jobs:
   main:
     name: Run linters and tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Extract R version from lockfile
         run: printf 'R_VERSION=%s\n' "$(jq --raw-output .R.Version renv.lock)" >> $GITHUB_ENV
@@ -31,7 +31,7 @@ jobs:
           libudunits2-dev
 
       - name: Restore renv from cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           CACHE_KEY: renv-${{ runner.arch }}-${{ runner.os }}-${{ env.R_VERSION }}
         with:
@@ -46,9 +46,9 @@ jobs:
           renv::restore(clean = TRUE)
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Lint R
         if: always()
@@ -82,7 +82,7 @@ jobs:
 
       - name: Run Cypress end-to-end tests
         if: always()
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v6
         with:
           working-directory: .rhino # Created by earlier commands which use Node.js
           start: npm run run-app

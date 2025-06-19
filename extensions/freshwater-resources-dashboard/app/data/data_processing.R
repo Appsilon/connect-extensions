@@ -1,14 +1,14 @@
 box::use(
-  qs[...],
   dplyr[...],
-  tidyr[...]
+  qs[...],
+  tidyr[...],
 )
 
-#Reading the original dataset extracted from Aquastat (all variables included)
+# Reading the original dataset extracted from Aquastat (all variables included)
 
 all_variables_dataset <- qread("app/data/all_variables_dataset.qs")
 
-#Unify country names with the ones in map file
+# Unify country names with the ones in map file
 
 all_variables_dataset <- all_variables_dataset |>
   mutate(
@@ -51,7 +51,8 @@ selected_variables_dataset <- all_variables_dataset |>
   pivot_wider(
     id_cols = c("Country", "Year"),
     names_from = "Variable",
-    values_from = "Value") |>
+    values_from = "Value"
+  ) |>
   rename(
     `Total renewable water resources per capita (m3/inhab/year)` =
       `Total renewable water resources per capita`,
